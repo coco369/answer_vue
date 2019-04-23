@@ -1,30 +1,20 @@
 # answer_vue
 
-> A Vue.js project
+> 开发人员：王海飞
+>
+> github地址: github.com/coco369
+>
+> 本项目为Vue框架项目，打造面试题搜索引擎项目。项目才用前后分离技术实现，前端为Vue框架、后端采用Python的 Django框架。
 
-## Build Setup
+## 运行项目
 
-``` bash
-# install dependencies
+``` 
+# 安装依赖
 npm install
 
-# serve with hot reload at localhost:8080
+cnpm install --save axios element-ui
+
+# 启动项目，启动地址为localhost:8080
 npm run dev
 
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
