@@ -59,6 +59,9 @@ export default {
               // 将后端返回的token值进行前端存储
               const token = resp.data['token']
               localStorage.setItem('token', token)
+              // 将后端返回的用户名信息进行前端存储
+              const username = resp.data['username']
+              localStorage.setItem('username', username)
               this.$router.push({path: '/back/index/'})
             }
             if (resp.code === 1001) {
@@ -66,6 +69,7 @@ export default {
             }
             if (resp.code === 1002) {
               if (resp.data.error) {
+                // 判断是否有错误信息
                 if (resp.data.error.username) {
                   this.username_error = resp.data.error.username[0]
                 }

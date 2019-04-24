@@ -15,7 +15,7 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
               <!--<li><a href="">消息 <span class="badge">1</span></a></li>-->
-              <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">admin <span class="caret"></span></a>
+              <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ username }} <span class="caret"></span></a>
                 <ul class="dropdown-menu dropdown-menu-left">
                   <li><a title="查看或修改个人信息" data-toggle="modal" data-target="#seeUserInfo">个人信息</a></li>
                   <li><a title="查看您的登录记录" data-toggle="modal" data-target="#seeUserLoginlog">登录记录</a></li>
@@ -33,6 +33,11 @@
 <script>
 export default {
   name: 'Common',
+  data () {
+    return {
+      username: ''
+    }
+  },
   components: {
     'remote-js': {
       render (createElement) {
@@ -54,6 +59,10 @@ export default {
       localStorage.removeItem('token')
       this.$router.push({path: '/back/login/'})
     }
+  },
+  mounted () {
+    // 获取用户的登陆信息
+    this.username = localStorage.getItem('username')
   }
 }
 </script>
