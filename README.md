@@ -18,3 +18,18 @@ cnpm install --save axios element-ui
 npm run dev
 
 ```
+
+## 打包项目
+
+如果执行 npm run build命令时报错，出错为npm: 6.5.0-next.0 should be >= 3.0.0
+
+解决办法如下：
+
+``` 
+npm install npm@latest -g
+``` 
+
+ Tip: built files are meant to be served over an HTTP server.
+  Opening index.html over file:// won't work.
+
+npm install -g http-server // 该命令只需执行一次, 安装过之后, 以后就不需要重复安装了.

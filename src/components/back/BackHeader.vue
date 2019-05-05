@@ -67,7 +67,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import "../../../static/back/css/style.css";
 @import "../../../static/back/css/font-awesome.min.css";
 @import "../../../static/back/css/bootstrap.min.css";

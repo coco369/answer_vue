@@ -47,7 +47,9 @@ exports.cssLoaders = function (options) {
     if (options.extract) {
       return ExtractTextPlugin.extract({
         use: loaders,
-        fallback: 'vue-style-loader'
+        fallback: 'vue-style-loader',
+        // 如果图片放在和src同级的static文件中，则需要配置如下的内容。当打包build时，才会将static中的背景图片打包处理
+        publicPath: '../../'
       })
     } else {
       return ['vue-style-loader'].concat(loaders)

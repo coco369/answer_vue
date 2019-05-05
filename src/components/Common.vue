@@ -1,20 +1,20 @@
 <template>
   <div>
-    <remote-js src="/static/js/jquery-1.8.3.min.js"></remote-js>
-    <remote-js src="/static/js/jquery.easing.1.3.js"></remote-js>
-    <remote-js src="/static/js/prettyphoto/jquery.prettyPhoto.js"></remote-js>
-    <remote-js src="/static/js/jflickrfeed.js"></remote-js>
-    <remote-js src="/static/js/jquery.liveSearch.js"></remote-js>
-    <remote-js src="/static/js/jquery.form.js"></remote-js>
-    <remote-js src="/static/js/jquery.validate.min.js"></remote-js>
-    <remote-js src="/static/js/custom.js"></remote-js>
+    <!--<remote-js src="/static/js/jquery-1.8.3.min.js"></remote-js>-->
+    <!--<remote-js src="/static/js/jquery.easing.1.3.js"></remote-js>-->
+    <!--<remote-js src="/static/js/prettyphoto/jquery.prettyPhoto.js"></remote-js>-->
+    <!--<remote-js src="/static/js/jflickrfeed.js"></remote-js>-->
+    <!--<remote-js src="/static/js/jquery.liveSearch.js"></remote-js>-->
+    <!--<remote-js src="/static/js/jquery.form.js"></remote-js>-->
+    <!--<remote-js src="/static/js/jquery.validate.min.js"></remote-js>-->
+    <!--<remote-js src="/static/js/custom.js"></remote-js>-->
     <div class="header-wrapper">
       <header>
         <div class="container">
           <div class="logo-container">
             <!-- Website Logo -->
             <router-link to="/"  title="面试搜索引擎">
-              <img src="/static/images/logo.png" alt="面试搜索引擎">
+              <img src="../../static/images/logo.png" alt="面试搜索引擎">
             </router-link>
             <span class="tag-line">面试搜索引擎</span>
           </div>
@@ -93,9 +93,4 @@ export default {
 </script>
 <!--scoped表示局部样式渲染-->
 <style>
-@import '../../static/css/bootstrap5152.css';
-@import '../../static/css/responsive5152.css';
-@import '../../static/css/main5152.css';
-
-.search_btn {width:50px; margin-top:10px;}
 </style>

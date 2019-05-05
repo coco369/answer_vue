@@ -10,9 +10,9 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {
+    proxyTable: {  // 仅仅在开发模式下使用
       '/api': {
-        target: 'http://localhost:8000',  //这里所有api开头的都被代理到了 localhost:8888 这样就解决了跨域问题
+        target: 'http://127.0.0.1:8000',  //这里所有api开头的都被代理到了 localhost:8888 这样就解决了跨域问题
         changeOrigin: true,
       }
     },
@@ -55,8 +55,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
-
+    assetsPublicPath: './',
     /**
      * Source Maps
      */

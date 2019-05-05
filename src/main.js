@@ -16,18 +16,20 @@ import 'element-ui/lib/theme-chalk/index.css'
 // 进入公共js文件
 import common from './utils/functions.js'
 
-Vue.use(VueKindEditor)
-
-Vue.use(ElementUI)
-// const ajax = axios.create({
-//   baseURL: 'http://127.0.0.1:8000'
-// })
 Vue.config.productionTip = false
-// Vue.prototype.axios = ajax
+const ajax = axios.create({
+  baseURL: 'http://127.0.0.1:8000',
+  withCredentials: true // 允许携带cookie
+})
+//
+Vue.prototype.axios = ajax
 // Vue.prototype.axios = axios
 Vue.prototype.common = common
 
-Vue.use(VueAxios, axios)
+// Vue.use(VueAxios, axios)
+Vue.use(VueKindEditor)
+
+Vue.use(ElementUI)
 
 /* eslint-disable no-new */
 new Vue({

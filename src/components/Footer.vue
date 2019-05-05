@@ -77,6 +77,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+@import '../../static/css/bootstrap5152.css';
+@import '../../static/css/responsive5152.css';
+@import '../../static/css/main5152.css';
 
+.search_btn {width:50px; margin-top:10px;}
 </style>

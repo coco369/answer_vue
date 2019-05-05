@@ -121,6 +121,7 @@ export default {
     ).catch(
       err => {
         alert(err)
+        alert('错误')
       }
     )
     // 获取最新面试题数据
@@ -162,5 +163,6 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped>
+
 </style>
