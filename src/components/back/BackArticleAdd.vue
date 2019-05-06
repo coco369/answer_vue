@@ -145,6 +145,14 @@ export default {
 </script>
 
 <style scoped>
+@import "../../../static/back/css/style.css";
+@import "../../../static/back/css/font-awesome.min.css";
+@import "../../../static/back/css/bootstrap.min.css";
 .my_content {padding-top: 30px;}
 .error_cls {color:red; font-weight: bold; font-family: '微软雅黑';}
+body {
+  color: #444;
+  background-color: #EEE;
+  overflow-x: hidden;
+}
 </style>

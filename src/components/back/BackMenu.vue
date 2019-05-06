@@ -72,5 +72,12 @@ export default {
 </script>
 
 <style scoped>
-
+@import "../../../static/back/css/style.css";
+@import "../../../static/back/css/font-awesome.min.css";
+@import "../../../static/back/css/bootstrap.min.css";
+body {
+  color: #444;
+  background-color: #EEE;
+  overflow-x: hidden;
+}
 </style>
