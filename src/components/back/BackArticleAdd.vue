@@ -85,7 +85,8 @@ export default {
       title_error: '',
       pri_key_error: '',
       answer_error: '',
-      error_cls: 'error_cls'
+      error_cls: 'error_cls',
+      answer_id: ''
     }
   },
   methods: {
@@ -110,29 +111,72 @@ export default {
       if (this.is_show) {
         params['is_show'] = this.is_show
       }
-      console.log(params)
+
+      if (this.answer_id) {
+      //  执行修改面试题的axios功能
+        this.axios({
+          method: 'patch',
+          url: '/api/back/questions/' + this.answer_id + '/?token=' + token,
+          data: params
+        }).then(
+          res => {
+            const resp = res.data
+            if (resp.code === 200) {
+              this.$router.push({'path': '/back/article/'})
+            }
+          }
+        ).catch(
+          err => {
+            alert('修改面试题失败')
+            console.log(err)
+          }
+        )
+      } else {
       // 执行创建面试题的axios功能
-      this.axios.post('/api/back/questions/', params).then(
+        this.axios.post('/api/back/questions/', params).then(
+          res => {
+            const resp = res.data
+            if (resp.code === 200) {
+              this.$router.push({'path': '/back/article/'})
+            }
+            if (resp.code === 2002 | resp.code === 1006 | resp.code === 1001) {
+              alert(resp.msg)
+            } else {
+              // 将错误信息渲染到页面中
+              console.log(resp.data.error)
+              if (resp.data.error.title) {
+                this.title_error = resp.data.error.title[0]
+              }
+              if (resp.data.error.answer) {
+                this.answer_error = resp.data.error.answer[0]
+              }
+              if (resp.data.error.pri_key) {
+                this.pri_key_error = resp.data.error.pri_key[0]
+              }
+            }
+          }
+        ).catch(
+          err => {
+            alert(err)
+          }
+        )
+      }
+    }
+  },
+  mounted () {
+    // 获取路由中动态的id值
+    const id = this.$route.params.id
+    this.answer_id = id
+    const token = localStorage.getItem('token')
+    if (id) {
+      this.axios.get('/api/back/questions/' + id + '/?token=' + token).then(
         res => {
           const resp = res.data
-          if (resp.code === 200) {
-            this.$router.push({'path': '/back/article/'})
-          }
-          if (resp.code === 2002 | resp.code === 1006 | resp.code === 1001) {
-            alert(resp.msg)
-          } else {
-            // 将错误信息渲染到页面中
-            console.log(resp.data.error)
-            if (resp.data.error.title) {
-              this.title_error = resp.data.error.title[0]
-            }
-            if (resp.data.error.answer) {
-              this.answer_error = resp.data.error.answer[0]
-            }
-            if (resp.data.error.pri_key) {
-              this.pri_key_error = resp.data.error.pri_key[0]
-            }
-          }
+          this.title = resp.data.title
+          this.editorText = resp.data.answer
+          this.pri_key = resp.data.pri_key
+          this.from_company = resp.data.from_company
+          this.is_show = resp.data.is_show
         }
       ).catch(
         err => {

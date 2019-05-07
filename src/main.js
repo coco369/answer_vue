@@ -18,6 +18,7 @@ import common from './utils/functions.js'
 
 Vue.config.productionTip = false
 const ajax = axios.create({
+  // baseURL: 'http://lesou.vincent-whf.top',
   baseURL: 'http://127.0.0.1:8000',
   withCredentials: true // 允许携带cookie
 })

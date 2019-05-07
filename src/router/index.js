@@ -46,6 +46,11 @@ export default new Router({
       component: backarticleAdd
     },
     {
+      path: '/back/article/update/:id',
+      name: 'back_article_update',
+      component: backarticleAdd
+    },
+    {
       path: '/back/login/',
       component: backLogin
     },

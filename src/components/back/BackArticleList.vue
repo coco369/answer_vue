@@ -32,7 +32,7 @@
               <td class="hidden-sm" v-else>不展示</td>
               <td>{{ item.create_time | formatDate }}</td>
               <td>
-                <a href="update-article.html">修改</a>
+                <router-link :to="{ name: 'back_article_update', params: {id: item.id}}" >修改</router-link>
                 <a rel="6" @click="delete_article(item.id)" onClick="if(!confirm('是否确认删除？'))return false;">删除</a>
               </td>
             </tr>
