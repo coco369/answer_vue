@@ -1,7 +1,7 @@
 <template>
   <div>
     <aside class="col-sm-3 col-md-2 col-lg-2 sidebar">
-      <ul class="nav nav-sidebar" v-for="(item, index) in menu">
+      <ul class="nav nav-sidebar" v-for="(item, index) in menu" v-bind:key="item.id">
         <li v-bind:class="{'active': item.isActive}" @click="changeMenu(index)">
           <router-link :to="item.purl">{{ item.name }}</router-link>
         </li>

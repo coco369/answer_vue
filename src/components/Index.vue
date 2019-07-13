@@ -14,7 +14,7 @@
               <section class="span4 articles-list">
                 <h3><router-link to="/article_list">排名前十</router-link></h3>
                 <ul class="articles">
-                  <li class="article-entry standard" v-for="item in ranking_data">
+                  <li class="article-entry standard" v-for="item in ranking_data" v-bind:key="item.id">
                     <h4><router-link  :to="{ name: 'article_detail', params: {id: item.id}}">{{ item.title }}</router-link></h4>
                     <span class="article-meta">{{ item.create_time | formatDate }}
                       <a href="#">{{ item.pri_key }}</a>
@@ -27,7 +27,7 @@
               <section class="span4 articles-list">
                 <h3>最新面试题</h3>
                 <ul class="articles">
-                  <li class="article-entry standard" v-for="new_item in new_data">
+                  <li class="article-entry standard" v-for="new_item in new_data" v-bind:key="new_item.id">
                     <h4><router-link :to="{ name: 'article_detail', params: {id: new_item.id}}">{{ new_item.title }}</router-link></h4>
                     <span class="article-meta">{{ new_item.create_time | formatDate }}
                       <a href="#">{{ new_item.pri_key }}</a>

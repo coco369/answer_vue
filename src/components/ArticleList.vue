@@ -24,11 +24,9 @@
 
               </header>
 
-              <p>
-                {{ item.answer }}
-                <router-link class="readmore-link" :to="{ name: 'article_detail', params: {id: item.id}}">Read more</router-link>
-              </p>
-
+              <div v-html="item.answer.slice(0,50)"></div>
+              <div>................</div>
+              <router-link class="readmore-link" :to="{ name: 'article_detail', params: {id: item.id}}">Read more</router-link>
             </article>
             <div id="pagination">
               <a class="btn" v-for="i in page"  @click="searchPage(i)" >{{ i }}</a>

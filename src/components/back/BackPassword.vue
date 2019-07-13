@@ -10,11 +10,15 @@
         <label for="userPwd" class="sr-only">密码</label>
         <p :class="error_cls">{{ password_error }}</p>
         <input type="password" id="userPwd" name="userpwd" v-model="passWord" @focus="focuspassword" class="form-control" placeholder="请输入密码" required autocomplete="off" maxlength="18">
-        <button class="btn btn-lg btn-primary btn-block" @click="login">登录</button>
+        <label for="userPwd" class="sr-only">确认密码</label>
+        <p :class="error_cls">{{ password2_error }}</p>
+        <input type="password" id="userPwd2" name="userpwd2" v-model="passWord2" @focus="focuspassword2" class="form-control" placeholder="请输入确认密码" required autocomplete="off" maxlength="18">
+        <br>
+        <button class="btn btn-lg btn-primary btn-block" @click="reset_password">重设密码</button>
         <div class="footer">
           <p>
-            <router-link to="/back/reset_password/">
-              重置密码 →
+            <router-link to="/back/login/">
+              回到登陆→
             </router-link>
           </p>
         </div>
@@ -31,8 +35,10 @@ export default {
       login_div: 's_login',
       username_error: '',
       password_error: '',
+      password2_error: '',
       userName: '',
       passWord: '',
+      passWord2: '',
       error_cls: 'error_color'
     }
   },
@@ -41,33 +47,38 @@ export default {
     focuspassword: function () {
       this.password_error = ''
     },
+    focuspassword2: function () {
+      this.password2_error = ''
+    },
     focususername: function () {
       this.username_error = ''
     },
-    login: function () {
+    reset_password: function () {
       const params = {
         username: this.userName,
-        password: this.passWord
+        password: this.passWord,
+        password2: this.passWord2
       }
-      if (this.userName && this.passWord) {
-        this.axios.post('/api/user/user/login/', params
+      if (this.userName && this.passWord && this.passWord2) {
+        this.axios.post('/api/user/user/reset_password/', params
         ).then(
           response => {
             const resp = response.data
             console.log(resp.data)
             if (resp.code === 200) {
-              // 将后端返回的token值进行前端存储
-              const token = resp.data['token']
-              localStorage.setItem('token', token)
-              // 将后端返回的用户名信息进行前端存储
-              const username = resp.data['username']
-              localStorage.setItem('username', username)
-              this.$router.push({path: '/back/index/'})
+              // 重设密码成功
+              this.$router.push({path: '/back/login/'})
             }
-            if (resp.code === 1001) {
+            // 账号不存在
+            if (resp.code === 1005) {
               this.username_error = resp.msg
             }
-            if (resp.code === 1002) {
+            // 密码错误
+            if (resp.code === 1006) {
+              this.password_error = resp.msg
+            }
+            // 字段校验错误
+            if (resp.code === 1007) {
               if (resp.data.error) {
                 // 判断是否有错误信息
                 if (resp.data.error.username) {
@@ -75,6 +86,9 @@ export default {
                 }
                 if (resp.data.error.password) {
                   this.password_error = resp.data.error.password[0]
+                }
+                if (resp.data.error.password2) {
+                  this.password2_error = resp.data.error.password2[0]
                 }
               } else {
                 this.username_error = resp.msg

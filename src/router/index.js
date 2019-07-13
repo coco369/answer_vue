@@ -10,6 +10,7 @@ import backarticleAdd from '@/components/back/BackArticleAdd'
 import backLogin from '@/components/back/BackLogin'
 import blank from '@/components/blank'
 import backBlank from '@/components/back/blank'
+import backPassword from '@/components/back/BackPassword'
 
 Vue.use(Router)
 
@@ -53,6 +54,10 @@ export default new Router({
     {
       path: '/back/login/',
       component: backLogin
+    },
+    {
+      path: '/back/reset_password/',
+      component: backPassword
     },
     // 解决前端的面试列表页面中无刷新页面效果
     // 解决办法是：跳转到一个空到vue界面，然后再跳转会列表页面

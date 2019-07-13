@@ -23,7 +23,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="item in questions">
+            <tr v-for="item in questions" v-bind:key="item.id">
               <td>{{ item.id }}</td>
               <td class="article-title">{{ item.title }}</td>
               <td>{{ item.pri_key }}</td>
@@ -44,7 +44,7 @@
             <ul class="pagination pagenav">
               <li class="disabled"><a aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li>
               <!--<li class="active"><a href="#">1</a></li>-->
-              <li><a v-for="i in page_number" @click="page_search(i)">{{ i }}</a></li>
+              <li><a v-for="i in page_number" @click="page_search(i)" v-bind:key="i">{{ i }}</a></li>
               <li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a> </li>
             </ul>
           </nav>

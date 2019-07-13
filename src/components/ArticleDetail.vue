@@ -16,10 +16,9 @@
                   <span class="like-count" @click="agree(questions)">{{ questions.is_like }}</span>
                 </div><!-- end of post meta -->
               </header>
-              <p>
-                {{ questions.answer }}
+              <div v-html="questions.answer">
                 <!--<a class="readmore-link" href="">Read more</a>-->
-              </p>
+              </div>
             </article>
             <!--先不做上一页下一页的按钮功能-->
             <!--<div id="pagination">-->

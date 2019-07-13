@@ -133,6 +133,7 @@ export default {
         )
       } else {
       // 执行创建面试题的axios功能
+      console.log(params)
         this.axios.post('/api/back/questions/', params).then(
           res => {
             const resp = res.data
@@ -154,10 +155,6 @@ export default {
                 this.pri_key_error = resp.data.error.pri_key[0]
               }
             }
-          }
-        ).catch(
-          err => {
-            alert(err)
           }
         )
       }

@@ -4,7 +4,7 @@
     <remote-js src="/static/back/js/html5shiv.min.js"></remote-js>
     <remote-js src="/static/back/js/respond.min.js"></remote-js>
     <remote-js src="/static/back/js/selectivizr-min.js"></remote-js>
-    <remote-js src="/static/back/js/bootstrap.min.j"></remote-js>
+    <remote-js src="/static/back/js/bootstrap.min.js"></remote-js>
     <remote-js src="/static/back/js/admin-scripts.js"></remote-js>
     <header>
       <nav class="navbar navbar-default navbar-fixed-top">
@@ -25,8 +25,107 @@
             </ul>
           </div>
         </div>
+        <!--个人信息模态框-->
+        <div class="modal fade" id="seeUserInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" >个人信息</h4>
+                </div>
+                <div class="modal-body">
+                  <table class="table" style="margin-bottom:0px;">
+                    <thead>
+                    <tr> </tr>
+                    </thead>
+                    <tbody>
+                    <!--<tr>-->
+                      <!--<td wdith="20%">姓名:</td>-->
+                      <!--<td width="80%"><input type="text" value="" class="form-control" name="truename" maxlength="10" autocomplete="off" /></td>-->
+                    <!--</tr>-->
+                    <tr>
+                      <td wdith="20%">账号:</td>
+                      <td width="80%"><input type="text" v-model="username" disabled class="form-control" name="username" maxlength="10" autocomplete="off" /></td>
+                    </tr>
+                    <!--<tr>-->
+                      <!--<td wdith="20%">电话:</td>-->
+                      <!--<td width="80%"><input type="text" value="" class="form-control" name="usertel" maxlength="13" autocomplete="off" /></td>-->
+                    <!--</tr>-->
+                    <tr>
+                      <td wdith="20%">旧密码:</td>
+                      <td width="80%"><input type="password" class="form-control" v-model="old_password" name="old_password" maxlength="18" autocomplete="off" /></td>
+                    </tr>
+                    <tr>
+                      <td wdith="20%">新密码:</td>
+                      <td width="80%"><input type="password" class="form-control" v-model="password" name="password" maxlength="18" autocomplete="off" /></td>
+                    </tr>
+                    <tr>
+                      <td wdith="20%">确认密码:</td>
+                      <td width="80%"><input type="password" class="form-control" v-model="new_password" name="new_password" maxlength="18" autocomplete="off" /></td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr></tr>
+                    </tfoot>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                  <button type="button" @click="reset_password" class="btn btn-primary">提交</button>
+                </div>
+              </div>
+          </div>
+        </div>
+        <!--个人登录记录模态框-->
+        <div class="modal fade" id="seeUserLoginlog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >登录记录</h4>
+              </div>
+              <div class="modal-body">
+                <table class="table" style="margin-bottom:0px;">
+                  <thead>
+                  <tr>
+                    <th>登录IP</th>
+                    <th>登录时间</th>
+                    <th>状态</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>::1:55570</td>
+                    <td>2016-01-08 15:50:28</td>
+                    <td>成功</td>
+                  </tr>
+                  <tr>
+                    <td>::1:64377</td>
+                    <td>2016-01-08 10:27:44</td>
+                    <td>成功</td>
+                  </tr>
+                  <tr>
+                    <td>::1:64027</td>
+                    <td>2016-01-08 10:19:25</td>
+                    <td>成功</td>
+                  </tr>
+                  <tr>
+                    <td>::1:57081</td>
+                    <td>2016-01-06 10:35:12</td>
+                    <td>成功</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">朕已阅</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </nav>
-    </header>
+      </header>
   </div>
 </template>
 
@@ -35,7 +134,13 @@ export default {
   name: 'Common',
   data () {
     return {
-      username: ''
+      username_error: '',
+      old_password_error: '',
+      password_error: '',
+      username: '',
+      old_password: '',
+      password: '',
+      new_password: ''
     }
   },
   components: {
@@ -58,11 +163,79 @@ export default {
     logout: function () {
       localStorage.removeItem('token')
       this.$router.push({path: '/back/login/'})
+    },
+    // 修改密码
+    reset_password: function () {
+      const params = {
+        username: this.username,
+        password: this.old_password,
+        password2: this.password
+      }
+      // 老密码不存在
+      if (!this.old_password) {
+        this.$message({
+          message: '旧密码必填',
+          type: 'warning'
+        })
+        return
+      }
+      // 新密码不存在
+      if (!this.password) {
+        this.$message({
+          message: '新密码必填',
+          type: 'warning'
+        })
+        return
+      }
+      // 新确认密码不存在
+      if (!this.new_password) {
+        this.$message({
+          message: '新确认密码必填',
+          type: 'warning'
+        })
+        return
+      }
+      // 判断新密码和确认密码是否一致
+      if (this.password && this.new_password) {
+        if (this.password !== this.new_password) {
+          this.$message({
+            message: '新密码错误，请重新确认',
+            type: 'error'
+          })
+          return
+        }
+      }
+      // 如果账号密码以及新密码都存在，则提交ajax请求，实现修改账号密码
+      if (this.username && this.old_password && this.password && this.new_password) {
+        this.axios.post('/api/user/user/reset_password/', params
+        ).then(
+          response => {
+            const resp = response.data
+            console.log(resp.data)
+            if (resp.code === 200) {
+              // 重设密码成功
+              this.$router.push({path: '/back/login/'})
+            } else {
+              this.$message({
+                message: resp.msg,
+                type: 'error'
+              })
+            }
+          }
+        ).catch(error => {
+          alert(error)
+        })
+      }
     }
   },
   mounted () {
     // 获取用户的登陆信息
     this.username = localStorage.getItem('username')
+    // 获取用户登陆标示token值
+    const token = localStorage.getItem('token')
+    if (!token) {
+      this.$router.push({path: '/back/login/'})
+    }
   }
 }
 </script>
