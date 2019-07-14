@@ -94,26 +94,11 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>::1:55570</td>
-                    <td>2016-01-08 15:50:28</td>
-                    <td>成功</td>
-                  </tr>
-                  <tr>
-                    <td>::1:64377</td>
-                    <td>2016-01-08 10:27:44</td>
-                    <td>成功</td>
-                  </tr>
-                  <tr>
-                    <td>::1:64027</td>
-                    <td>2016-01-08 10:19:25</td>
-                    <td>成功</td>
-                  </tr>
-                  <tr>
-                    <td>::1:57081</td>
-                    <td>2016-01-06 10:35:12</td>
-                    <td>成功</td>
-                  </tr>
+                    <tr v-for="item in user_login">
+                      <td>{{ item.l_ip }}</td>
+                      <td>{{ item.create_time }}</td>
+                      <td>{{ item.status }}</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -140,7 +125,9 @@ export default {
       username: '',
       old_password: '',
       password: '',
-      new_password: ''
+      new_password: '',
+      token: '',
+      user_login: ''
     }
   },
   components: {
@@ -229,13 +216,26 @@ export default {
     }
   },
   mounted () {
-    // 获取用户的登陆信息
-    this.username = localStorage.getItem('username')
     // 获取用户登陆标示token值
-    const token = localStorage.getItem('token')
-    if (!token) {
+    this.token = localStorage.getItem('token')
+    if (!this.token) {
       this.$router.push({path: '/back/login/'})
     }
+    // 获取用户的登陆信息
+    this.username = localStorage.getItem('username')
+    // 获取用户的登陆记录
+    this.axios.get('/api/user/user/record/?token=' + this.token).then(
+      res => {
+        const resp = res.data
+        if (resp.code === 200) {
+          console.log(resp)
+          this.user_login = resp.data.user_login
+          localStorage.setItem('login_count', resp.data.count)
+          localStorage.setItem('last_ip', resp.data.last_ip)
+          localStorage.setItem('last_login_time', resp.data.last_time)
+        }
+      }
+    )
   }
 }
 </script>

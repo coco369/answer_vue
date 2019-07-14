@@ -32,7 +32,7 @@ export default {
     return {
       menu: [
         {name: '报告', isActive: false, purl: '/back/index/'},
-        {name: '文章', isActive: false, purl: '/back/article/'}
+        {name: '面试题', isActive: false, purl: '/back/article/'},
       ]
     }
   },

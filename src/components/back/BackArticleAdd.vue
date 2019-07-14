@@ -5,7 +5,7 @@
     <div class="my_content col-lg-10" id="main">
       <div class="row">
           <div class="col-md-9">
-            <h1 class="page-header">撰写新文章</h1>
+            <h1 class="page-header">撰写新面试题</h1>
             <div class="form-group">
               <p :class="error_cls">{{ title_error }}</p>
               <label for="article-title" class="sr-only">标题</label>

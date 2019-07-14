@@ -6,7 +6,7 @@
       <form action="/Article/checkAll" method="post" >
         <h1 class="page-header">操作</h1>
         <ol class="breadcrumb">
-          <li><router-link to="/back/article/add/">增加文章</router-link></li>
+          <li><router-link to="/back/article/add/">增加面试题</router-link></li>
         </ol>
         <h1 class="page-header">管理 <span class="badge">7</span></h1>
         <div class="table-responsive">
