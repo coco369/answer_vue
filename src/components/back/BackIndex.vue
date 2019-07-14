@@ -16,7 +16,7 @@
               <!--<span class="text-muted">0 条</span> </div>-->
             <div class="col-xs-6 col-sm-3 placeholder">
               <h4>今日访问量</h4>
-              <span class="text-muted">0</span> </div>
+              <span class="text-muted">{{ visit_count }}</span> </div>
           </div>
           <h1 class="page-header">状态</h1>
           <div class="table-responsive">
@@ -50,7 +50,8 @@ export default {
       username: '',
       login_count: '',
       last_ip: '',
-      last_time: ''
+      last_time: '',
+      visit_count: ''
     }
   },
   components: {
@@ -76,6 +77,15 @@ export default {
         if (resp.code === 200) {
           // 获取后端返回的面试题数量
           this.count = resp.data.count
+        }
+      }
+    )
+    // 获取今日访问量
+    this.axios.get('/api/back/visit/?token=' + this.token).then(
+      res => {
+        const resp = res.data
+        if (resp.code === 200) {
+          this.visit_count = resp.data.today_visit
         }
       }
     )
